@@ -1,9 +1,25 @@
 package com.example.demo.student;
 
+import jakarta.persistence.*;
+import org.springframework.boot.autoconfigure.domain.EntityScan;
+
+import javax.annotation.processing.Generated;
 import java.time.LocalDate;
 
+@Entity
+@Table(name = "Student")
 public class Student {
-    private Long id;
+    @Id
+    @SequenceGenerator(
+            name = "Student_sequence",
+            sequenceName = "Student_sequence",
+            allocationSize = 1
+    )
+    @GeneratedValue(
+            strategy = GenerationType.SEQUENCE,
+            generator = "Student_sequence"
+    )
+    public Long id;
     private String name;
     private String email;
     private LocalDate dob;
