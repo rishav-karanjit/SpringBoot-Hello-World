@@ -5,6 +5,7 @@ import org.springframework.boot.autoconfigure.domain.EntityScan;
 
 import javax.annotation.processing.Generated;
 import java.time.LocalDate;
+import java.time.Period;
 
 @Entity
 @Table(name = "Student")
@@ -23,6 +24,7 @@ public class Student {
     private String name;
     private String email;
     private LocalDate dob;
+    @Transient
     private Integer age;
 
     public Student() {
@@ -31,23 +33,19 @@ public class Student {
     public Student(Long id,
                    String name,
                    String email,
-                   LocalDate dob,
-                   Integer age) {
+                   LocalDate dob) {
         this.id = id;
         this.name = name;
         this.email = email;
         this.dob = dob;
-        this.age = age;
     }
 
     public Student(String name,
                    String email,
-                   LocalDate dob,
-                   Integer age) {
+                   LocalDate dob) {
         this.name = name;
         this.email = email;
         this.dob = dob;
-        this.age = age;
     }
 
     public Long getId() {
@@ -66,10 +64,9 @@ public class Student {
         return dob;
     }
 
-    public Integer getAge() {
-        return age;
+    public Integer getAge(){
+        return Period.between(dob, LocalDate.now()).getYears();
     }
-
     public void setId(Long id) {
         this.id = id;
     }
@@ -85,6 +82,8 @@ public class Student {
     public void setDob(LocalDate dob) {
         this.dob = dob;
     }
+
+
 
     public void setAge(Integer age) {
         this.age = age;
